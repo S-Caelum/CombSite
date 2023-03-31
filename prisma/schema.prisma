@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model AuthHistory {
+  Id       Int      @id(map: "PK_AuthHistory") @default(autoincrement())
+  UserId   Int
+  DateTime DateTime @db.DateTime
+  Status   Boolean
+  User     User     @relation(fields: [UserId], references: [Id], onDelete: Cascade, map: "FK_AuthHistory_User")
+}
+
+model Category {
+  Id              Int               @id(map: "PK_Category") @default(autoincrement())
+  Name            String            @db.NVarChar(50)
+  Description     String?           @db.NVarChar(100)
+  PhotoPath       String?
+  ServiceCategory ServiceCategory[]
+}
+
+model Client {
+  Id               Int             @id(map: "PK_Client") @default(autoincrement())
+  FirstName        String          @db.NVarChar(50)
+  LastName         String          @db.NVarChar(50)
+  Patronymic       String?         @db.NVarChar(50)
+  Birthday         DateTime        @db.Date
+  RegistrationDate DateTime        @db.Date
+  Email            String?         @unique(map: "IX_Email") @db.NVarChar(50)
+  Phone            String          @unique(map: "IX_Phone") @db.NVarChar(50)
+  GenderId         Int
+  Password         String?         @unique(map: "IX_Client") @db.NVarChar(50)
+  Gender           Gender          @relation(fields: [GenderId], references: [Id], onDelete: Cascade, map: "FK_Client_Gender")
+  ClientService    ClientService[]
+}
+
+model ClientService {
+  Id         Int      @id(map: "PK_ClientService") @default(autoincrement())
+  ClientId   Int
+  ServiceId  Int
+  EmployeeId Int
+  Date       DateTime @db.DateTime
+  Client     Client   @relation(fields: [ClientId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Client")
+  Employee   Employee @relation(fields: [EmployeeId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Employee")
+  Service    Service  @relation(fields: [ServiceId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Service")
+}
+
+model Employee {
+  Id            Int             @id(map: "PK_Employee") @default(autoincrement())
+  FirstName     String          @db.NVarChar(50)
+  LastName      String          @db.NVarChar(50)
+  Patronymic    String?         @db.NVarChar(50)
+  Post          String          @db.NVarChar(50)
+  PhotoPath     Bytes?
+  ClientService ClientService[]
+}
+
+model Gender {
+  Id     Int      @id(map: "PK_Gender")
+  Name   String   @db.NVarChar(50)
+  Client Client[]
+}
+
+model Role {
+  Id        Int    @id(map: "PK_Role") @default(autoincrement())
+  Name      String @db.NVarChar(50)
+  PhotoPath Bytes?
+  User      User[]
+}
+
+model Service {
+  Id              Int               @id(map: "PK_Service") @default(autoincrement())
+  Name            String            @db.NVarChar(50)
+  Cost            Float             @db.Money
+  Description     String?           @db.NVarChar(100)
+  IsActual        Boolean
+  RequiredHours   Int?
+  ClientService   ClientService[]
+  ServiceCategory ServiceCategory[]
+}
+
+model ServiceCategory {
+  Id         Int      @id(map: "PK_ServiceCategory") @default(autoincrement())
+  ServiceId  Int
+  CategoryId Int
+  Category   Category @relation(fields: [CategoryId], references: [Id], onDelete: Cascade, map: "FK_ServiceCategory_Category")
+  Service    Service  @relation(fields: [ServiceId], references: [Id], onDelete: Cascade, map: "FK_ServiceCategory_Service")
+}
+
+model User {
+  Id          Int           @id(map: "PK_User") @default(autoincrement())
+  FirstName   String        @db.NVarChar(50)
+  LastName    String        @db.NVarChar(50)
+  Login       String        @db.NVarChar(50)
+  Password    String        @db.NVarChar(50)
+  Lastenter   DateTime?     @db.Date
+  RoleId      Int
+  AuthHistory AuthHistory[]
+  Role        Role          @relation(fields: [RoleId], references: [Id], onDelete: Cascade, map: "FK_User_Role")
+}
