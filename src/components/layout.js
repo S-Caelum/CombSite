@@ -97,11 +97,11 @@ function GuestUserPanel(props) {
 
           <Navbar.Content hideIn='xs'>
             <NextLink style={{color: "white"}} href='/user'> {session.user.FirstName} {session.user.LastName} </NextLink>
-            <Button color='secondary' auto href='/register' onClick={() => signOut({ callbackUrl: "/" })}> Выйти </Button>
+            <Button color='secondary' auto href='/register' onClick={() => { signOut({ callbackUrl: "/" }); localStorage.clear() }}> Выйти </Button>
           </Navbar.Content>
 
           <Navbar.Content showIn='xs'>
-            <NextLink style={{color: "white"}} href='/auth/authorization'> Авторизация </NextLink>
+            <NextLink style={{color: "white"}} href='/user'> {session.user.FirstName} {session.user.LastName} </NextLink>
           </Navbar.Content>
 
           <Navbar.Collapse>
@@ -117,11 +117,20 @@ function GuestUserPanel(props) {
   }
 }
 
+function Footer(props) {
+  return (
+    <div style={{ display:"flex", backgroundColor:"Black", height:"3rem", alignItems:"center", justifyContent:"center" }}>
+      <Text> ПОДВАЛ? - ТЕБЯ СКЕЛЕТ ПОЦЕЛОВАЛ </Text>
+    </div>
+  )
+}
+
 export default function layout({ children }) {
   return (
     <>
       <GuestUserPanel/>
       <main>{children}</main>
+      <Footer/>
     </>
   );
 }

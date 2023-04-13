@@ -6,7 +6,7 @@ const Hero = ({ header, link }) => {
     return (
         <>
             <div style={{paddingTop:"4.8rem"}} className='smallHero'>
-                <Container css={{height:"26rem"}} display='flex' direction='column' justify='center' alignItems='center'>
+                <Container css={{height:"26rem", textAlign:"center"}} display='flex' direction='column' justify='center' alignItems='center'>
                     <Text css={{fontFamily:"Manrope"}} size='$5xl'>
                         {header}
                     </Text>

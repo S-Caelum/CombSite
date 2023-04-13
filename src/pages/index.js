@@ -38,11 +38,11 @@ export default function Home() {
           alignContent="center"
           justify="center"
         >
-          <Text css={{ fontFamily: "Diana" }} size="$4xl" hideIn="xs">
+          <Text css={{ textAlign:"center", fontFamily: "Diana", fs:"$4xl", "@xs":{ fs:"$5xl"} }}>
             Уверенные. Уникальные. Прекрасные
           </Text>
           <Text
-            css={{ fontFamily: "Manrope", "@xs": { fontSize: "16pt" } }}
+            css={{ textAlign:"center", fontFamily: "Manrope", fs: "14pt", mt:"1rem", "@xs": { fs: "16pt", mt:"0rem" }, "@lg": { fs: "20pt", mt:"0rem" } }}
             size="$3xl"
           >
             Расчёска
@@ -55,16 +55,17 @@ export default function Home() {
             justify="center"
             css={{
               mt: "6rem",
-              "@xs": { flexDirection: "row", gap: "4rem", mt: "8rem" },
+              "@xs": { flexDirection: "row", gap: "6rem", mt: "8rem" },
             }}
           >
             {salonData.map((salon) => (
               <NextLink href={salon.link} key={salon.id}>
                 <Card
                   css={{
-                    mw: "330px",
+                    mw: "380px",
                     mt: "2rem",
-                    "@xs": { height: "280px", mt: "0rem" },
+                    height:"310px",
+                    "@xs": { height: "300px", mt: "0rem" },
                     bgColor: "#424242ab",
                   }}
                   isPressable
@@ -77,8 +78,7 @@ export default function Home() {
                           fontFamily: "Manrope",
                           pl: "1rem",
                           pt: "1rem",
-                          pb: "0.3rem",
-                          "@sm": { pt: "1rem" },
+                          "@xs": { pt: "1rem", fs:"$xl" },
                         }}
                       >
                         {salon.title}
@@ -93,8 +93,7 @@ export default function Home() {
                           fontFamily: "Manrope",
                           pl: "1rem",
                           pr: "4rem",
-                          pt: "0/3rem",
-                          "@sm": { pt: "1rem" },
+                          "@xs": { pt: "1rem", fs:"$lg" },
                         }}
                       >
                         {salon.address}
@@ -112,6 +111,7 @@ export default function Home() {
                           pl: "1rem",
                           mb: "1rem",
                           mt: "1rem",
+                          "@xs": { fs:"$lg" },
                         }}
                       >
                         {salon.phone}
@@ -128,11 +128,11 @@ export default function Home() {
 
         <Grid.Container>
 
-          <Grid className="homeInfoCardOne" css={{ pt:"18rem", width:"50%", height:"18rem" }}></Grid>
+          <Grid className="homeInfoCardOne" css={{ pt:"18rem", width:"50%", height:"18rem", "@xs": { pt:"22rem", height:"22rem" } }}></Grid>
 
-          <Grid className="homeInfoCard" css={{ pt: "1rem", width:"50%", height:"16rem" }}>
-            <Text size="$3xl" css={{textAlign:"center", fontFamily:"Diana", pt:"0.5rem"}} color="secondary" >Опыт</Text>
-            <Text color="black" css={{ textAlign:"justify", pr:"1.5rem", pl:"1.5rem", pt:"1rem", fontFamily:"Manrope",'@sm': { pr:"2.5rem", pl:"2.5rem" }}}>
+          <Grid className="homeInfoCard" css={{ pt: "1rem", width:"50%", height:"16rem", "@xs": { pt:"1rem", height:"22rem" } }}>
+            <Text css={{ fs:"$3xl", textAlign:"center", fontFamily:"Diana", pt:"0.5rem","@xs": { fs:"$4xl" } }} color="secondary" >Опыт</Text>
+            <Text color="black" css={{ textAlign:"justify", pr:"1.5rem", pl:"1.5rem", pt:"1rem", fontFamily:"Manrope", "@xs":{ fs:"$lg" }, '@sm': { pr:"2.5rem", pl:"2.5rem" }}}>
               Опыт наших услуг начинается в тот момент, когда вы входите в один
               из двух наших хорошо оборудованных мест с полным спектром услуг в
               Оренбурге. Там, в теплой, гостеприимной обстановке, мы применяем
@@ -143,12 +143,12 @@ export default function Home() {
 
         </Grid.Container>
 
-        <Grid.Container>
+        <Grid.Container css={{ pt:"1rem", "@xs": { pt:"0rem" }}}>
 
           <Grid className="homeInfoCardTwo" css={{ pt:"18rem", width:"50%", height:"18rem", '@sm': { display: "none" } }}></Grid>
-          <Grid className="homeInfoCard" css={{ pt: "1rem", width:"50%", height:"16rem" }}>
-            <Text size="$3xl" css={{textAlign:"center", fontFamily:"Diana", pt:"0.5rem"}} color="secondary" >Стилисты</Text>
-            <Text color="black" css={{ textAlign:"justify", pr:"1.5rem", pl:"1.5rem", pt:"1rem", fontFamily:"Manrope", '@sm': { pr:"2.5rem", pl:"2.5rem" }}}>
+          <Grid className="homeInfoCard" css={{ pt: "1rem", width:"50%", height:"16rem", "@xs": { pt:"1rem", height:"22rem" } }}>
+            <Text css={{ fs:"$3xl", textAlign:"center", fontFamily:"Diana", pt:"0.5rem","@xs": { fs:"$4xl" } }} color="secondary" >Стилисты</Text>
+            <Text color="black" css={{ textAlign:"justify", pr:"1.5rem", pl:"1.5rem", pt:"1rem", fontFamily:"Manrope", "@xs":{ fs:"$lg" }, '@sm': { pr:"2.5rem", pl:"2.5rem" }}}>
                 Наши высококвалифицированные стилисты выбраны за их творческий
                 опыт в предоставлении персонализированных точных стрижек и
                 модных женских и мужских причесок. Постоянное обучение и
@@ -157,36 +157,36 @@ export default function Home() {
             </Text>
           </Grid>
 
-          <Grid className="homeInfoCardTwoCopy" css={{ pt:"18rem", width:"50%", height:"18rem" }}></Grid>
+          <Grid className="homeInfoCardTwoCopy" css={{ pt:"18rem", width:"50%", height:"18rem", "@xs": { pt: "22rem", height:"22rem" } }}></Grid>
 
         </Grid.Container>
       </div>
       <div className="HomeServices">
         <Container css={{pt: "5rem", mb:"7rem"}}>
           <Col css={{textAlign: "center"}}>
-            <Text color="secondary" size="$2xl" css={{fontFamily:"diana"}}> Наши </Text>
-            <Text color="secondary" size="$3xl" css={{fontFamily:"manrope"}}> Услуги </Text>
+            <Text color="secondary" css={{ fs:"$2xl", fontFamily:"diana", "@xs": { fs:"$3xl" }}}> Наши </Text>
+            <Text color="secondary" css={{ fs:"$3xl", fontFamily:"manrope", "@xs": { fs:"$4xl" }}}> Услуги </Text>
           </Col>
           <Row css={{pt: "2rem", textAlign:"center"}}>
-            <Text color="black" css={{fontFamily:"manrope", '@sm': {pl: "6rem", pr: "6rem"}, '@lg': { pl:"15rem", pr:"15rem"}}}>
+            <Text color="black" css={{ fontFamily:"manrope", "@xs": { fs:"$xl" }, '@sm': { pl: "6rem", pr: "6rem"}, '@lg': { pl:"15rem", pr:"15rem"}}}>
               Уже более 30 лет наши салоны предлагают непревзойденный уровень
               оценки клиентов. Мы хотим, чтобы вы были полностью удовлетворены
               своим опытом каждый раз, когда вы посещаете нас.
             </Text>
           </Row>
-          <Grid.Container css={{pt:"5rem", '@xs': { gap:"6rem" }}} justify="center" gap={2}>
+          <Grid.Container css={{ pt:"5rem", '@xs': { gap:"6rem" }}} justify="center">
             <Grid>
               <Col css={{textAlign:"center"}}>
-              <Text css={{fontFamily:"manrope", pt:"0.5rem"}} color="black">Окрашивание</Text>
-              <Text css={{fontFamily:"manrope", pt:"0.5rem"}} color="black">Стрижки</Text>
-              <Text css={{fontFamily:"manrope", pt:"0.5rem"}} color="black">Укладка</Text>
+              <Text css={{fontFamily:"manrope", pt:"0.5rem", "@xs": { fs:"$lg" }}} color="black">Окрашивание</Text>
+              <Text css={{fontFamily:"manrope", pt:"0.5rem", "@xs": { fs:"$lg" }}} color="black">Стрижки</Text>
+              <Text css={{fontFamily:"manrope", pt:"0.5rem", "@xs": { fs:"$lg" }}} color="black">Укладка</Text>
               </Col>
             </Grid>
             <Grid>
               <Col css={{textAlign:"center"}}>
-              <Text css={{fontFamily:"manrope", pt:"0.5rem"}} color="black">Уход</Text>
-              <Text css={{fontFamily:"manrope", pt:"0.5rem"}} color="black">Макияж</Text>
-              <Text css={{fontFamily:"manrope", pt:"0.5rem"}} color="black">Мелирование</Text>
+              <Text css={{fontFamily:"manrope", pt:"0.5rem", "@xs": { fs:"$lg" }}} color="black">Уход</Text>
+              <Text css={{fontFamily:"manrope", pt:"0.5rem", "@xs": { fs:"$lg" }}} color="black">Макияж</Text>
+              <Text css={{fontFamily:"manrope", pt:"0.5rem", "@xs": { fs:"$lg" }}} color="black">Мелирование</Text>
               </Col>
             </Grid>
           </Grid.Container>

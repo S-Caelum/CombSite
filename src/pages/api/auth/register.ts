@@ -15,9 +15,9 @@ export default async function handler(
     genderId,
     password,
   } = req.body;
-  const exists = await prisma.client.findFirst({
+  const exists = await prisma.client.findUnique({
     where: {
-      Phone: phoneNumber,
+      Email: email,
     },
   });
   if (exists) {

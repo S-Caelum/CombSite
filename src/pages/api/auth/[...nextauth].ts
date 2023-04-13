@@ -51,6 +51,7 @@ export const authOptions: NextAuthOptions = {
             LastName: user.LastName,
             Phone: user.Phone,
             Email: user.Email,
+            Birthday: user.Birthday
           };
         }
       },
@@ -68,7 +69,8 @@ export const authOptions: NextAuthOptions = {
         session.user.FirstName = token.FirstName;
         session.user.LastName = token.LastName;
         session.user.Phone = token.Phone;
-        session.user.BirthDay = token.BirthDay;
+        session.user.Email = token.Email
+        session.user.Birthday = token.Birthday;
       }
       return session;
     },
@@ -78,7 +80,8 @@ export const authOptions: NextAuthOptions = {
         token.FirstName = user.FirstName;
         token.LastName = user.LastName;
         token.Phone = user.Phone;
-        token.BirthDay = user.BirthDay;
+        token.Email = user.Email;
+        token.Birthday = user.Birthday;
       }
       return token;
     },

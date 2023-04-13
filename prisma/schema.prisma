@@ -44,6 +44,7 @@ model ClientService {
   ServiceId  Int
   EmployeeId Int
   Date       DateTime @db.DateTime
+  Cost       Float?   @db.Money
   Client     Client   @relation(fields: [ClientId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Client")
   Employee   Employee @relation(fields: [EmployeeId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Employee")
   Service    Service  @relation(fields: [ServiceId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Service")
