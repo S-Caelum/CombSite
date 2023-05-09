@@ -278,7 +278,7 @@ export default function User(props) {
                                   ))}
                                 </select>
                                 <Text css={{ pt:"1rem", fontFamily:"Manrope" }}> Укажите желаемые дату и время </Text>
-                                <input required id="date" style={{width:"100%", height:"2rem", paddingLeft:"0.5rem", paddingRight:"0.5rem", fontSize:"1rem"}} onChange={(e) => { if((moment(e.target.value).format("DD/MM") == birthdayDate) && counter != 6 ) setDiscount("0.85") }} type="datetime-local"/>
+                                <input required id="date" style={{width:"100%", height:"2rem", paddingLeft:"0.5rem", paddingRight:"0.5rem", fontSize:"1rem"}} onChange={(e) => { if((moment(e.target.value).format("DD/MM") == birthdayDate) && counter != 6 ) setDiscount("0.85") }} type="date"/>
                                 <Row css={{ flexDirection:"column", alignItems:"center", gap:"1rem", justifyContent:"space-around", pt:"2rem", "@lg": { flexDirection:"row", alignItems:"center" }, "@xs": { flexDirection:"row", alignItems:"center" } }}>
                                   <Button color="secondary" type="submit"> Оформить </Button>
                                   <Button color="secondary" onPress={() => {

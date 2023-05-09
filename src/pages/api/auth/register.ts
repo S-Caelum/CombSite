@@ -15,27 +15,18 @@ export default async function handler(
     genderId,
     password,
   } = req.body;
-  const exists = await prisma.client.findUnique({
-    where: {
+  const user = await prisma.client.create({
+    data: {
+      FirstName: firstName,
+      LastName: lastName,
+      Patronymic: patronymic,
+      Birthday: new Date(birthDay).toISOString(),
+      RegistrationDate: new Date().toISOString(),
+      Phone: phoneNumber,
+      GenderId: parseInt(genderId),
       Email: email,
+      Password: password,
     },
   });
-  if (exists) {
-    res.status(400).send("Пользователь уже существует");
-  } else {
-    const user = await prisma.client.create({
-      data: {
-        FirstName: firstName,
-        LastName: lastName,
-        Patronymic: patronymic,
-        Birthday: new Date(birthDay).toISOString(),
-        RegistrationDate: new Date().toISOString(),
-        Phone: phoneNumber,
-        GenderId: parseInt(genderId),
-        Email: email,
-        Password: password,
-      },
-    });
-    res.status(200).json(user);
-  }
+  return res.status(200).json({ Code: 200, Text: "Успешная регистрация" });
 }
