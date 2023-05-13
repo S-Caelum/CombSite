@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    forceSwcTransforms: true,
+  },
   reactStrictMode: false,
   webpack(config) {
-    config.experiments = { ...config.experiments, topLevelAwait: true }
-    return config
+    config.experiments = { ...config.experiments, topLevelAwait: true };
+    return config;
   },
   experimental: {
     swcPlugins: [
@@ -14,7 +17,7 @@ const nextConfig = {
         },
       ],
     ],
-  }
-}
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
