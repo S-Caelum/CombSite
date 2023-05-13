@@ -129,6 +129,7 @@ const Authorization: NextPage = (props): JSX.Element => {
             </Col>
           </form>
         </Container>
+        <Button onPress={() => signIn('vk-login')}> VK </Button>
       </div>
     </>
   );
