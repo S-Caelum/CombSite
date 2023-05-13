@@ -1,49 +1,43 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import VkProvider from "next-auth/providers/vk";
+import NextAuth from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import VkProvider from 'next-auth/providers/vk';
 
-export const authOptions: NextAuthOptions = {
+export const authOptions = {
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
   secret: process.env.AUTH_SECRET,
   providers: [
     CredentialsProvider({
-      name: "Credentials",
-      id: "email-login",
+      name: 'Credentials',
+      id: 'email-login',
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "yoao21" },
-        password: { label: "Password", type: "password" },
+        email: { label: 'Email', type: 'text', placeholder: 'yoao21' },
+        password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        const { email, password } = credentials as {
-          email: string;
-          password: string;
-        };
+        const { email, password } = credentials;
         if (!email && !password) {
-          throw new Error("Не введены данные учётной записи!");
+          throw new Error('Не введены данные учётной записи!');
         } else if (!password) {
-          throw new Error("Не введён пароль учётной записи!");
+          throw new Error('Не введён пароль учётной записи!');
         } else if (!email) {
-          throw new Error("Не введён адрес электронной почты!");
+          throw new Error('Не введён адрес электронной почты!');
         }
-        const res = await fetch(
-          "http://localhost:3000/api/auth/auth",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email,
-              password,
-            }),
-          }
-        );
+        const res = await fetch('http://localhost:3000/api/auth/auth', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        });
         const user = await res.json();
 
         if (res.status == 401) {
-          throw new Error("Неверные данные авторизации");
+          throw new Error('Неверные данные авторизации');
         } else if (res.status == 200) {
           return {
             Id: user.Id,
@@ -51,13 +45,13 @@ export const authOptions: NextAuthOptions = {
             LastName: user.LastName,
             Phone: user.Phone,
             Email: user.Email,
-            Birthday: user.Birthday
+            Birthday: user.Birthday,
           };
         }
       },
     }),
     VkProvider({
-      id: "vk-login",
+      id: 'vk-login',
       clientId: process.env.VK_CLIENT_ID,
       clientSecret: process.env.VK_CLIENT_SECRET,
     }),
@@ -69,7 +63,7 @@ export const authOptions: NextAuthOptions = {
         session.user.FirstName = token.FirstName;
         session.user.LastName = token.LastName;
         session.user.Phone = token.Phone;
-        session.user.Email = token.Email
+        session.user.Email = token.Email;
         session.user.Birthday = token.Birthday;
       }
       return session;
@@ -87,7 +81,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/auth/authorization",
+    signIn: '/auth/authorization',
   },
 };
 
