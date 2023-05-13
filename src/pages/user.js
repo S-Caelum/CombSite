@@ -19,22 +19,29 @@ export async function getServerSideProps(context) {
     };
   }
   const user = await getToken({ req });
-  const [categoriesRes, servicesRes, employeesRes, ordersRes] = await Promise.all([
+  const [categoriesRes, servicesRes, employeesRes] = await Promise.all([
     fetch(`${process.env.APP_DOMAIN}/api/orders/categoryList`),
     fetch(`${process.env.APP_DOMAIN}/api/orders/serviceList`),
     fetch(`${process.env.APP_DOMAIN}/api/orders/employeeList`),
-    fetch(`${process.env.APP_DOMAIN}/api/user/userOrderList`, {
-      method: 'POST',
-      body: JSON.stringify({
-        id: user.Id,
-      }),
-    }),
   ]);
-  const [categories, services, employees, orders] = await Promise.all([
+  var ordersData = [];
+  const ordersRes = await fetch(`${process.env.APP_DOMAIN}/api/user/userOrderList`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id: user.Id,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      ordersData = data;
+    });
+  const [categories, services, employees] = await Promise.all([
     await categoriesRes.json(),
     await servicesRes.json(),
     await employeesRes.json(),
-    await ordersRes.json(),
   ]);
   return {
     props: {
@@ -42,7 +49,7 @@ export async function getServerSideProps(context) {
       categories,
       services,
       employees,
-      orders,
+      orders: ordersData,
     },
   };
 }
@@ -50,6 +57,7 @@ export async function getServerSideProps(context) {
 /** @param {import('next').InferGetServerSidePropsType<typeof getServerSideProps> } props */
 
 export default function User(props) {
+  console.log(props.orders);
   async function dateSelectionHandler(e) {
     if (moment(e.target.value).format('DD/MM') == birthdayDate && counter != 6)
       setDiscount('0.85');
