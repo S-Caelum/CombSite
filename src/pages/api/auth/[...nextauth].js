@@ -24,7 +24,7 @@ export const authOptions = {
         } else if (!email) {
           throw new Error('Не введён адрес электронной почты!');
         }
-        const res = await fetch('http://localhost:3000/api/auth/auth', {
+        const res = await fetch(`${process.env.APP_DOMAIN}/api/auth/auth`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
