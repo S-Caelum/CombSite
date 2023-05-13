@@ -1,4 +1,5 @@
 import { authOptions } from './api/auth/[...nextauth]';
+import { getToken } from 'next-auth/jwt';
 import { getServerSession } from 'next-auth/next';
 import Hero from '../components/smallHero';
 import { Container, Table, Card, Col, Text, Row, Button } from '@nextui-org/react';
@@ -17,7 +18,7 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  const user = session.user;
+  const user = await getToken({ req });
   const [categoriesRes, servicesRes, employeesRes, ordersRes] = await Promise.all([
     fetch(`${process.env.APP_DOMAIN}/api/orders/categoryList`),
     fetch(`${process.env.APP_DOMAIN}/api/orders/serviceList`),
