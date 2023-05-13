@@ -39,15 +39,16 @@ model Client {
 }
 
 model ClientService {
-  Id         Int      @id(map: "PK_ClientService") @default(autoincrement())
-  ClientId   Int
-  ServiceId  Int
-  EmployeeId Int
-  Date       DateTime @db.DateTime
-  Cost       Float?   @db.Money
-  Client     Client   @relation(fields: [ClientId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Client")
-  Employee   Employee @relation(fields: [EmployeeId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Employee")
-  Service    Service  @relation(fields: [ServiceId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Service")
+  Id          Int      @id(map: "PK_ClientService") @default(autoincrement())
+  ClientId    Int
+  ServiceId   Int
+  EmployeeId  Int
+  Date        DateTime @db.DateTime
+  IsCompleted Boolean?
+  Cost        Int?
+  Client      Client   @relation(fields: [ClientId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Client")
+  Employee    Employee @relation(fields: [EmployeeId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Employee")
+  Service     Service  @relation(fields: [ServiceId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Service")
 }
 
 model Employee {
@@ -102,14 +103,4 @@ model User {
   RoleId      Int
   AuthHistory AuthHistory[]
   Role        Role          @relation(fields: [RoleId], references: [Id], onDelete: Cascade, map: "FK_User_Role")
-}
-
-model sysdiagrams {
-  name         String @db.NVarChar(128)
-  principal_id Int
-  diagram_id   Int    @id(map: "PK__sysdiagr__C2B05B61BD8D0641") @default(autoincrement())
-  version      Int?
-  definition   Bytes?
-
-  @@unique([principal_id, name], map: "UK_principal_name")
 }

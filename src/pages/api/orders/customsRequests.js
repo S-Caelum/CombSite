@@ -1,11 +1,11 @@
-import { prisma } from "./prisma"
+import { prisma } from '../../../utils/prisma';
 
 export const getServices = await prisma.service.findMany({
   where: {
-    IsActual: true
+    IsActual: true,
   },
   include: {
-    ServiceCategory: true
+    ServiceCategory: true,
   },
 });
 
@@ -15,7 +15,7 @@ export const getEmployees = await prisma.employee.findMany({
     FirstName: true,
     LastName: true,
     Patronymic: true,
-  }
+  },
 });
 
 export const getCategories = await prisma.category.findMany();

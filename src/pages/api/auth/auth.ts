@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../prisma"
+import { NextApiRequest, NextApiResponse } from 'next';
+import { prisma } from '../../../utils/prisma';
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,11 +8,11 @@ export default async function handler(
   const { email, password } = req.body;
   const user = await prisma.client.findUnique({
     where: {
-      Email: email
-    }
+      Email: email,
+    },
   });
   if (!user) {
-    res.status(401).json("Неверные данные авторизации")
+    res.status(401).json('Неверные данные авторизации');
   } else if (user.Password == password) {
     res.status(200).json(user);
   }

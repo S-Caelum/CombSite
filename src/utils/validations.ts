@@ -1,6 +1,6 @@
 const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-export async function EmailValidation(email: string) {
+export function EmailValidation(email: string) {
   var emailToLower = email.toLowerCase();
   if (emailToLower.match(re)) {
     return true;
@@ -9,7 +9,7 @@ export async function EmailValidation(email: string) {
   }
 };
 
-export async function BirthDayValidation(birthDay: string) {
+export function BirthDayValidation(birthDay: string) {
   var birthDayToDate = new Date(birthDay);
   var minimalDate = new Date("01/12/1950");
   if (birthDayToDate > new Date()) {

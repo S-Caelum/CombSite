@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../prisma";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { prisma } from '../../../utils/prisma';
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,5 +28,5 @@ export default async function handler(
       Password: password,
     },
   });
-  return res.status(200).json({ Code: 200, Text: "Успешная регистрация" });
+  return res.status(200).json({ Code: 200, Text: 'Успешная регистрация' });
 }
