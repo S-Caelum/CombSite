@@ -1,15 +1,19 @@
-import * as ServicesRequest from './api/orders/customsRequests';
 import SmallHero from '../components/smallHero';
 import { Container, Row, Col, Text } from '@nextui-org/react';
 
-export async function getServerSideProps(context) {
-  const req = context.req;
-  const res = context.res;
-  res.setHeader('Cache-Control', 'public, s-maxage=30, stale-while-revalidate=20');
+export async function getServerSideProps() {
+  const [serviceRes, categoriesRes] = await Promise.all([
+    fetch(`${process.env.NEXTAUTH_URL}/api/orders/serviceList`),
+    fetch(`${process.env.NEXTAUTH_URL}/api/orders/categoryList`),
+  ]);
+  const [services, categories] = await Promise.all([
+    serviceRes.json(),
+    categoriesRes.json(),
+  ]);
   return {
     props: {
-      services: ServicesRequest.getServices,
-      categories: ServicesRequest.getCategories,
+      services,
+      categories,
     },
   };
 }

@@ -1,28 +1,13 @@
-import { getToken } from 'next-auth/jwt';
 import { authOptions } from './api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth/next';
-import { prisma } from '../utils/prisma';
-import * as servicesRequest from './api/orders/customsRequests';
 import Hero from '../components/smallHero';
-import {
-  Container,
-  Table,
-  Card,
-  Col,
-  Text,
-  Row,
-  Button,
-  Modal,
-  Radio,
-} from '@nextui-org/react';
+import { Container, Table, Card, Col, Text, Row, Button } from '@nextui-org/react';
 import moment from 'moment/moment';
 import { useCart } from 'react-use-cart';
 import { useEffect, useState } from 'react';
 
 export async function getServerSideProps(context) {
   const req = context.req;
-  const res = context.res;
-  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   const session = await getServerSession(context.req, context.res, authOptions);
   if (!session) {
     return {
@@ -32,37 +17,31 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
-  const token = await getToken({ req });
-  const getClientOrders = await prisma.clientService.findMany({
-    where: {
-      ClientId: token.Id,
-    },
-    include: {
-      Employee: {
-        select: {
-          Id: true,
-          FirstName: true,
-          LastName: true,
-        },
-      },
-      Service: {
-        select: {
-          Id: true,
-          Name: true,
-          Cost: true,
-        },
-      },
-    },
-  });
-
+  const user = session.user;
+  const [categoriesRes, servicesRes, employeesRes, ordersRes] = await Promise.all([
+    fetch(`${process.env.APP_DOMAIN}/api/orders/categoryList`),
+    fetch(`${process.env.APP_DOMAIN}/api/orders/serviceList`),
+    fetch(`${process.env.APP_DOMAIN}/api/orders/employeeList`),
+    fetch(`${process.env.APP_DOMAIN}/api/user/userOrderList`, {
+      method: 'POST',
+      body: JSON.stringify({
+        id: user.Id,
+      }),
+    }),
+  ]);
+  const [categories, services, employees, orders] = await Promise.all([
+    await categoriesRes.json(),
+    await servicesRes.json(),
+    await employeesRes.json(),
+    await ordersRes.json(),
+  ]);
   return {
     props: {
-      token,
-      categories: servicesRequest.getCategories,
-      services: servicesRequest.getServices,
-      orders: getClientOrders,
-      employees: servicesRequest.getEmployees,
+      user,
+      categories,
+      services,
+      employees,
+      orders,
     },
   };
 }
@@ -166,7 +145,7 @@ export default function User(props) {
   }
 
   // Functions that creates discount on every 6th order and on birthday date
-  var birthdayDate = moment(props.token.Birthday).format('DD/MM');
+  var birthdayDate = moment(props.user.Birthday).format('DD/MM');
   var counter = 1;
   const [discount, setDiscount] = useState('1');
   props.orders.forEach(() => counter++);
@@ -182,7 +161,7 @@ export default function User(props) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          clientId: props.token.Id,
+          clientId: props.user.Id,
           serviceID: Number(item.id),
           requestedDate: e.currentTarget.date.value,
           requestedEmployee: Number(e.currentTarget.employee.value),
@@ -218,7 +197,7 @@ export default function User(props) {
       {/* Hero component for header of the page */}
       <section>
         <Hero
-          header={props.token.FirstName + ' ' + props.token.LastName}
+          header={props.user.FirstName + ' ' + props.user.LastName}
           link=" Главная / Профиль"
         />
       </section>
