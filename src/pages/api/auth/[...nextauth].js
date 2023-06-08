@@ -50,11 +50,6 @@ export const authOptions = {
         }
       },
     }),
-    VkProvider({
-      id: 'vk-login',
-      clientId: process.env.VK_CLIENT_ID,
-      clientSecret: process.env.VK_CLIENT_SECRET,
-    }),
   ],
   callbacks: {
     async session({ session, token }) {

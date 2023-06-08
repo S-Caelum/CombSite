@@ -1,7 +1,7 @@
-import { authOptions } from './api/auth/[...nextauth]';
+import { authOptions } from '../api/auth/[...nextauth]';
 import { getToken } from 'next-auth/jwt';
 import { getServerSession } from 'next-auth/next';
-import Hero from '../components/smallHero';
+import Hero from '../../components/smallHero';
 import { Container, Table, Card, Col, Text, Row, Button } from '@nextui-org/react';
 import moment from 'moment/moment';
 import { useCart } from 'react-use-cart';
@@ -25,7 +25,7 @@ export async function getServerSideProps(context) {
     fetch(`${process.env.APP_DOMAIN}/api/orders/employeeList`),
   ]);
   var ordersData = [];
-  const ordersRes = await fetch(`${process.env.APP_DOMAIN}/api/user/userOrderList`, {
+  const ordersRes = await fetch(`http://localhost:3000/api/user/userOrderList`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -59,8 +59,7 @@ export async function getServerSideProps(context) {
 export default function User(props) {
   console.log(props.orders);
   async function dateSelectionHandler(e) {
-    if (moment(e.target.value).format('DD/MM') == birthdayDate && counter != 6)
-      setDiscount('0.85');
+    if (moment(e.target.value).format('DD/MM') == birthdayDate && counter != 6) setDiscount('0.85');
   }
 
   // Defining delay function for components
@@ -164,7 +163,7 @@ export default function User(props) {
   async function newOrderHandler(e) {
     e.preventDefault();
     allItems.forEach((item) => {
-      fetch('/api/orders/newOrder', {
+      fetch('http://localhost:3000/api/orders/newOrder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -175,6 +174,7 @@ export default function User(props) {
           requestedDate: e.currentTarget.date.value,
           requestedEmployee: Number(e.currentTarget.employee.value),
           serviceCost: Number(item.price * parseFloat(discount)),
+          isCompleted: '',
         }),
       }).then((res) => {
         switch (res.status) {
@@ -185,9 +185,7 @@ export default function User(props) {
             console.log(res.text());
             break;
           case 500:
-            console.log(
-              'Произошла неизвестная ошибка. Попробуйте снова или свяжитесь со специалистом'
-            );
+            console.log('Произошла неизвестная ошибка. Попробуйте снова или свяжитесь со специалистом');
             break;
           case 200:
             emptyCart();
@@ -205,10 +203,7 @@ export default function User(props) {
     <>
       {/* Hero component for header of the page */}
       <section>
-        <Hero
-          header={props.user.FirstName + ' ' + props.user.LastName}
-          link=" Главная / Профиль"
-        />
+        <Hero header={props.user.FirstName + ' ' + props.user.LastName} link=" Главная / Профиль" />
       </section>
       {/* Main Content of the page */}
       <section style={{ height: '100%', paddingBottom: '5rem' }}>
@@ -268,12 +263,7 @@ export default function User(props) {
                         </Table.Row>
                       )}
                     </Table.Body>
-                    <Table.Pagination
-                      css={{ mt: '0.5rem' }}
-                      noMargin
-                      align="center"
-                      rowsPerPage={6}
-                    />
+                    <Table.Pagination css={{ mt: '0.5rem' }} noMargin align="center" rowsPerPage={6} />
                   </Table>
                 </Card.Body>
               </Card>
@@ -315,11 +305,8 @@ export default function User(props) {
                         {data
                           .filter((value) => {
                             return (
-                              Number(
-                                value.ServiceCategory.map(
-                                  (category) => category.CategoryId
-                                )
-                              ) === Number(selectedCategoryId)
+                              Number(value.ServiceCategory.map((category) => category.CategoryId)) ===
+                              Number(selectedCategoryId)
                             );
                           })
                           .map((item, id) => (
@@ -327,9 +314,7 @@ export default function User(props) {
                               <Card.Body>
                                 <Row wrap="wrap" justify="space-between" align="center">
                                   <Col css={{ width: '50%' }}>
-                                    <Text css={{ '@lg': { ml: '1rem' } }}>
-                                      {item.Name}
-                                    </Text>
+                                    <Text css={{ '@lg': { ml: '1rem' } }}>{item.Name}</Text>
                                   </Col>
                                   <Col css={{ width: '20%' }}>
                                     <Text> {item.price} ₽ </Text>
@@ -396,9 +381,7 @@ export default function User(props) {
                                 </Card.Body>
                               </Card>
                               <Col css={{ pt: '1rem', pl: '0.5rem' }}>
-                                <Text css={{ fontFamily: 'Manrope' }}>
-                                  Выберите мастера
-                                </Text>
+                                <Text css={{ fontFamily: 'Manrope' }}>Выберите мастера</Text>
                                 <select
                                   required
                                   id="employee"
@@ -414,9 +397,7 @@ export default function User(props) {
                                     </option>
                                   ))}
                                 </select>
-                                <Text css={{ pt: '1rem', fontFamily: 'Manrope' }}>
-                                  Укажите желаемую дату
-                                </Text>
+                                <Text css={{ pt: '1rem', fontFamily: 'Manrope' }}>Укажите желаемую дату</Text>
                                 <input
                                   required
                                   id="date"

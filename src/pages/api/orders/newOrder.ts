@@ -2,12 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '../../../utils/prisma';
 import moment from 'moment';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { clientId, serviceID, requestedDate, requestedEmployee, serviceCost } =
-    req.body;
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { clientId, serviceID, requestedDate, requestedEmployee, serviceCost, isCompleted } = req.body;
 
   var currentDate = Date.now();
   var nearDate = moment(currentDate).add(2, 'hours').toISOString();
@@ -19,9 +15,7 @@ export default async function handler(
     },
   });
 
-  if (
-    new Date(requestedDate).toISOString() < new Date(nearDate).toISOString()
-  ) {
+  if (new Date(requestedDate).toISOString() < new Date(nearDate).toISOString()) {
     res.status(503).send('Введено некорректное значение времени');
   } else if (existingTime) {
     res.status(504).send('На данное время уже есть запись');
@@ -37,6 +31,7 @@ export default async function handler(
             EmployeeId: requestedEmployee,
             Date: new Date(requestedDate).toISOString(),
             Cost: serviceCost,
+            IsCompleted: Boolean(0),
           },
         },
       },

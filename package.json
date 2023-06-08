@@ -10,6 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.1.0",
     "@nextui-org/react": "^1.0.0-beta.12",
     "@prisma/client": "^4.14.0",
     "babel-plugin-superjson-next": "^0.4.5",
@@ -22,11 +23,13 @@
     "next-superjson-plugin": "^0.5.6",
     "nextjs-progressbar": "^0.0.16",
     "nodemailer": "^6.9.1",
-    "nodemailer-juice": "^1.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.44.3",
+    "react-input-mask": "^2.0.4",
     "react-use-cart": "^1.13.0",
-    "sharp": "^0.32.1"
+    "sharp": "^0.32.1",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@types/node": "18.15.11",

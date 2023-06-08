@@ -34,11 +34,7 @@ const Nav = () => {
       {/* Common used */}
       <Navbar.Brand css={{ gap: '1rem' }}>
         <Navbar.Toggle showIn="sm" />
-        <NextLink
-          href="/"
-          style={{ display: 'flex', gap: '1rem' }}
-          passHref
-          legacyBehavior>
+        <NextLink href="/" style={{ display: 'flex', gap: '1rem' }} passHref legacyBehavior>
           <a style={{ color: 'white', display: 'flex', gap: '1rem' }}>
             <Image src={Logo} width={35} height={35} alt="Logos" />
             <Text css={{ fontFamily: 'Manrope' }} color="white" hideIn="xs">
@@ -51,12 +47,7 @@ const Nav = () => {
       {/* Desktop/Tablet */}
       <Navbar.Content hideIn="sm" gap="8rem">
         {collapseItems.map((item) => (
-          <NextLink
-            key={item.id}
-            style={{ color: 'white' }}
-            href={item.link}
-            passHref
-            legacyBehavior>
+          <NextLink key={item.id} style={{ color: 'white' }} href={item.link} passHref legacyBehavior>
             <a style={{ color: 'white' }}>{item.name}</a>
           </NextLink>
         ))}
@@ -67,7 +58,7 @@ const Nav = () => {
           <Row align="center" css={{ gap: '1rem' }}>
             <NextLink
               style={{ fontFamily: 'Manrope', color: 'white' }}
-              href="/user"
+              href={`/user/${session.user.Id}`}
               legacyBehavior>
               <a style={{ color: 'white' }}>
                 {session.user.FirstName} {session.user.LastName}
@@ -84,10 +75,7 @@ const Nav = () => {
                 Авторизация
               </a>
             </NextLink>
-            <Button
-              color="secondary"
-              auto
-              onClick={() => router.push('/auth/registration')}>
+            <Button color="secondary" auto onClick={() => router.push('/auth/registration')}>
               Регистрация
             </Button>
           </Row>
@@ -132,9 +120,7 @@ const Nav = () => {
             <NextLink style={{ color: 'white' }} href="" passHref legacyBehavior>
               <a onClick={signIn}>Авторизация</a>
             </NextLink>
-            <NextLink
-              style={{ color: 'white', paddingTop: '1rem' }}
-              href="/auth/registration">
+            <NextLink style={{ color: 'white', paddingTop: '1rem' }} href="/auth/registration">
               Регистрация
             </NextLink>
           </Navbar.CollapseItem>
