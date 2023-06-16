@@ -12,7 +12,6 @@ const RegistrationFirstStep = ({
 }) => {
   const [checked, setChecked] = React.useState('1');
   const onSubmit = (data) => {
-    console.log(data);
     setRegistrationData({
       ...registrationData,
       firstName: data.firstName,
@@ -26,11 +25,11 @@ const RegistrationFirstStep = ({
   const schema = Yup.object().shape({
     firstName: Yup.string().required('Заполните поле'),
     lastName: Yup.string().required('Заполните поле'),
-    patronymic: Yup.string().required('Заполните поле'),
+    patronymic: Yup.string(),
     dob: Yup.date()
       .required('Заполните поле')
       .max(new Date(), 'Выбранная дата не должна превышать текущую')
-      .min(new Date('1960-01-01'), 'Выбранная дата не должная быть меньше 1961 года'),
+      .min(new Date('1900-01-01'), 'Выбранная дата не должная быть меньше 1900 года'),
   });
   const {
     register,

@@ -6,10 +6,7 @@ export async function getServerSideProps() {
     fetch(`${process.env.NEXTAUTH_URL}/api/orders/serviceList`),
     fetch(`${process.env.NEXTAUTH_URL}/api/orders/categoryList`),
   ]);
-  const [services, categories] = await Promise.all([
-    serviceRes.json(),
-    categoriesRes.json(),
-  ]);
+  const [services, categories] = await Promise.all([serviceRes.json(), categoriesRes.json()]);
   return {
     props: {
       services,
@@ -20,12 +17,9 @@ export async function getServerSideProps() {
 
 /** @param {import('next').InferGetServerSIdePropsType<typeof getServerSIdeProps> } props */
 export default function Services(props) {
-  const servicesFiltering = (filterId) => {
+  const filterServices = (filterId) => {
     return props.services.filter((service) => {
-      return (
-        Number(service.ServiceCategory.map((category) => category.CategoryId)) ===
-        Number(filterId)
-      );
+      return Number(service.ServiceCategory.map((category) => category.CategoryId)) === Number(filterId);
     });
   };
 
@@ -87,7 +81,7 @@ export default function Services(props) {
                   }}>
                   {category.Name}
                 </Text>
-                {servicesFiltering(category.Id).map((service, id) => (
+                {filterServices(category.Id).map((service, id) => (
                   <Row
                     key={id}
                     css={{

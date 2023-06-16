@@ -35,7 +35,7 @@ const RegistrationSecondStep = ({
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const emailSendHandler = async (email) => {
+  const sendMail = async (email) => {
     var validationInfo = generateCode(6);
     setCode({ code: validationInfo.result, time: validationInfo.time });
     const sender = fetch(`http://localhost:3000/api/emailSender`, {
@@ -47,9 +47,7 @@ const RegistrationSecondStep = ({
         email: email,
         code: validationInfo.result,
       }),
-    })
-      .then((res) => console.log(res.json))
-      .finally(setRegistrationStep({ ...registrationStep, secondStep: 'none', thirdStep: 'flex' }));
+    }).finally(setRegistrationStep({ ...registrationStep, secondStep: 'none', thirdStep: 'flex' }));
   };
   const secondStepHandler = (data) => {
     console.log(data);
@@ -59,7 +57,7 @@ const RegistrationSecondStep = ({
       phone: data.phone,
       password: data.confirmPassword,
     });
-    emailSendHandler(data.email);
+    sendMail(data.email);
   };
   return (
     <Card.Body css={{ display: registrationStep.secondStep }}>

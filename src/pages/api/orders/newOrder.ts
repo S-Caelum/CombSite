@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             EmployeeId: requestedEmployee,
             Date: new Date(requestedDate).toISOString(),
             Cost: serviceCost,
-            IsCompleted: Boolean(0),
+            isCompleted: false,
           },
         },
       },

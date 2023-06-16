@@ -19,7 +19,7 @@ export async function getServerSideProps(context) {
     };
   }
   const user = await getToken({ req });
-  const [categoriesRes, servicesRes, employeesRes] = await Promise.all([
+  var [categoriesRes, servicesRes, employeesRes] = await Promise.all([
     fetch(`${process.env.APP_DOMAIN}/api/orders/categoryList`),
     fetch(`${process.env.APP_DOMAIN}/api/orders/serviceList`),
     fetch(`${process.env.APP_DOMAIN}/api/orders/employeeList`),
@@ -32,13 +32,14 @@ export async function getServerSideProps(context) {
     },
     body: JSON.stringify({
       id: user.Id,
+      token: user.sub,
     }),
   })
     .then((res) => res.json())
     .then((data) => {
       ordersData = data;
     });
-  const [categories, services, employees] = await Promise.all([
+  var [categories, services, employees] = await Promise.all([
     await categoriesRes.json(),
     await servicesRes.json(),
     await employeesRes.json(),

@@ -16,7 +16,8 @@ export default async function EmailSender(req: NextApiRequest, res: NextApiRespo
     from: 'noreply.rascheska56@rascheska.ru',
     to: email,
     subject: 'Подтвердите введённые данные',
-    html: `<div> <p> Здравствуйте. </p> <p> Для подтверждения указанной почты используйте следующий высланный вам код: </p> <p> ${code} </p> <p>Данный код по всей видимости не может истечь поэтому вы можете бить программиста по голове любым тяжёлым предметом.</p> </div>`,
+    html: `<div> <p> Здравствуйте. </p> <p> Для подтверждения указанной почты используйте следующий высланный вам код: </p> <p> ${code} </p> 
+    <p>Данный код истекает через 10 минут после отправки.</p> </div>`,
   };
   return new Promise((resolve, reject) => {
     transport.sendMail(mailOptions);
