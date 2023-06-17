@@ -4,14 +4,7 @@ import { NextApiResponse, NextApiRequest } from 'next';
 
 export default async function EmailSender(req: NextApiRequest, res: NextApiResponse) {
   var { email, code } = req.body;
-  var transport = nodemailer.createTransport({
-    host: 'sandbox.smtp.mailtrap.io',
-    port: 2525,
-    auth: {
-      user: 'f2351d63934bd9',
-      pass: '527bcd96eb2a1a',
-    },
-  });
+  var transport = nodemailer.createTransport({});
   var mailOptions = {
     from: 'noreply.rascheska56@rascheska.ru',
     to: email,

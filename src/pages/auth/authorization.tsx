@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import React, { FormEventHandler, useState } from 'react';
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Container, Col, Text, Input, Spacer, Button, Modal } from '@nextui-org/react';
 import { signIn } from 'next-auth/react';
@@ -88,9 +88,7 @@ const Authorization: NextPage = (props): JSX.Element => {
                     mr: '3rem',
                   },
                 }}
-                onChange={({ target }) =>
-                  setAccountData({ ...accountData, email: target.value })
-                }
+                onChange={({ target }) => setAccountData({ ...accountData, email: target.value })}
               />
               <Spacer y={1.3} />
               <Input.Password
@@ -105,11 +103,15 @@ const Authorization: NextPage = (props): JSX.Element => {
                     mr: '3rem',
                   },
                 }}
-                onChange={({ target }) =>
-                  setAccountData({ ...accountData, password: target.value })
-                }
+                onChange={({ target }) => setAccountData({ ...accountData, password: target.value })}
               />
               <Spacer y={1.6} />
+              <Link
+                href={`/auth/registration`}
+                style={{ color: 'white', textDecoration: 'underline', alignSelf: 'center' }}>
+                Не зарегистрированы?
+              </Link>
+              <Spacer y={0.6} />
               <Button
                 color="secondary"
                 aria-label="Войти в профиль"
