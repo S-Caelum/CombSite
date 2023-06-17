@@ -25,7 +25,7 @@ export async function getServerSideProps(context) {
     fetch(`${process.env.APP_DOMAIN}/api/orders/employeeList`),
   ]);
   var ordersData = [];
-  const ordersRes = await fetch(`http://localhost:3000/api/user/userOrderList`, {
+  const ordersRes = await fetch(`${process.env.APP_DOMAIN}/api/user/userOrderList`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -164,7 +164,7 @@ export default function User(props) {
   async function newOrderHandler(e) {
     e.preventDefault();
     allItems.forEach((item) => {
-      fetch('http://localhost:3000/api/orders/newOrder', {
+      fetch(`${process.env.APP_DOMAIN}/api/orders/newOrder`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

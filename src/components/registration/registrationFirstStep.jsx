@@ -110,7 +110,7 @@ const RegistrationFirstStep = ({
         </Radio.Group>
         <Spacer y={2.3} />
         <Link
-          href={`http://localhost:3000/auth/authorization`}
+          href={`${process.env.APP_DOMAIN}/auth/authorization`}
           style={{ color: 'white', textDecoration: 'underline', alignSelf: 'center' }}>
           Уже зарегистрированы?
         </Link>

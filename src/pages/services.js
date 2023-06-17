@@ -3,8 +3,8 @@ import { Container, Row, Col, Text } from '@nextui-org/react';
 
 export async function getServerSideProps() {
   const [serviceRes, categoriesRes] = await Promise.all([
-    fetch(`${process.env.NEXTAUTH_URL}/api/orders/serviceList`),
-    fetch(`${process.env.NEXTAUTH_URL}/api/orders/categoryList`),
+    fetch(`${process.env.APP_DOMAIN}/api/orders/serviceList`),
+    fetch(`${process.env.APP_DOMAIN}/api/orders/categoryList`),
   ]);
   const [services, categories] = await Promise.all([serviceRes.json(), categoriesRes.json()]);
   return {
