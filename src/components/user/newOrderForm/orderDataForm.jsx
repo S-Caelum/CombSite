@@ -35,7 +35,7 @@ const OrderDataForm = ({
   }
   const onSubmit = (data) => {
     allItems.forEach((item) => {
-      fetch(`http://localhost:3000/api/orders/newOrder`, {
+      fetch(`${process.env.APP_DOMAIN}/api/orders/newOrder`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
