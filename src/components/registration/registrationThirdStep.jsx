@@ -19,7 +19,7 @@ const RegistrationThirdStep = ({
       .matches(code.code, 'Неверный код подтверждения'),
   });
   const thirdStepHandler = async (data) => {
-    const res = await fetch(`${process.env.APP_DOMAIN}/api/auth/register`, {
+    await fetch(`/api/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const RegistrationThirdStep = ({
     })
       .then((res) => res.json())
       .then((data) => console.log(data.Text))
-      .finally(() => router.push(`${process.env.APP_DOMAIN}/auth/authorization`));
+      .then(() => router.push(`/auth/authorization`));
   };
   const {
     register,

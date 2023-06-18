@@ -38,7 +38,7 @@ const RegistrationSecondStep = ({
   const sendMail = async (email) => {
     var validationInfo = generateCode(6);
     setCode({ code: validationInfo.result, time: validationInfo.time });
-    const sender = fetch(`${process.env.APP_DOMAIN}3000/api/emailSender`, {
+    const sender = fetch(`/api/emailSender`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

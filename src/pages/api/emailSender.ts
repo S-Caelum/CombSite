@@ -1,10 +1,20 @@
 import React from 'react';
-import nodemailer from 'nodemailer';
 import { NextApiResponse, NextApiRequest } from 'next';
 
 export default async function EmailSender(req: NextApiRequest, res: NextApiResponse) {
   var { email, code } = req.body;
-  var transport = nodemailer.createTransport({});
+  const nodemailer = require('nodemailer');
+  let transport = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      type: 'OAuth2',
+      user: String(process.env.MAIL_USERNAME) || '',
+      pass: String(process.env.MAIL_PASSWORD) || '',
+      clientId: String(process.env.OAUTH_CLIENTID) || '',
+      clientSecret: String(process.env.OAUTH_CLIENT_SECRET) || '',
+      refreshToken: String(process.env.OAUTH_REFRESH_TOKEN) || '',
+    },
+  });
   var mailOptions = {
     from: 'noreply.rascheska56@rascheska.ru',
     to: email,
