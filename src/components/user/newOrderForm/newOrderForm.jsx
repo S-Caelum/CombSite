@@ -34,7 +34,7 @@ const NewOrderForm = ({ categories, services, employees, user, counter }) => {
 
   return (
     <Col css={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Card css={{ '@lg': { mw: '90%' } }}>
+      <Card css={{ '@lg': { mw: '100%', ml: '3rem' } }}>
         <Card.Header css={{ justifyContent: 'center', pt: '1.3rem' }}>
           <Text
             css={{

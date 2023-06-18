@@ -36,7 +36,7 @@ const OrdersTable = ({ orders, setCounter }) => {
   });
   return (
     <Col css={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Card css={{ '@lg': { mw: '90%' } }}>
+      <Card css={{ '@lg': { mw: '100%', mr: '3rem' } }}>
         <Card.Header css={{ justifyContent: 'center', pt: '1.3rem' }}>
           <Text
             css={{

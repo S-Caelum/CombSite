@@ -1,17 +1,17 @@
-import { Text } from '@nextui-org/react';
+import { Row, Text } from '@nextui-org/react';
 
 const Footer = (props) => {
   return (
-    <div
+    <Row
       style={{
         display: 'flex',
-        backgroundColor: 'Black',
-        height: '3rem',
+        backgroundColor: '#16181A',
+        height: '5rem',
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <Text> ПОДВАЛ? - ТЕБЯ СКЕЛЕТ ПОЦЕЛОВАЛ </Text>
-    </div>
+      <Text> ИП &quot;Новикова С. А.&quot; - 2023 </Text>
+    </Row>
   );
 };
 
