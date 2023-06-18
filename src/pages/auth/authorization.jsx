@@ -1,55 +1,47 @@
-import { NextPage } from 'next';
-import React, { FormEventHandler, useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { Container, Col, Text, Input, Spacer, Button, Modal } from '@nextui-org/react';
+import { Button, Col, Container, Input, Link, Spacer, Text } from '@nextui-org/react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
-const Authorization: NextPage = (props): JSX.Element => {
+const Authorization = () => {
   const router = useRouter();
-  const [visible, setVisible] = useState(false);
-  const [accountData, setAccountData] = useState({ email: '', password: '' });
-  const [errorData, setErrorData] = useState({ errorDesc: '' });
-  const handler = () => setVisible(true);
-  const closeHandler = () => {
-    setVisible(false);
-  };
-  const submitHandler: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
+  const schema = Yup.object().shape({
+    login: Yup.string()
+      .required('Заполните поле')
+      .matches(
+        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+        'Введите корректный адрес электронной почты'
+      ),
+    password: Yup.string().required('Заполните поле'),
+  });
+  const {
+    register,
+    handleSubmit,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+  const submitHandler = async (data) => {
+    console.log(data);
     const res = await signIn('email-login', {
-      email: accountData.email,
-      password: accountData.password,
+      email: data.login,
+      password: data.password,
       redirect: false,
     }).then(({ ok, error }) => {
       if (ok) {
+        clearErrors();
         router.push('/');
       } else if (error) {
-        setErrorData({ ...errorData, errorDesc: error });
-        handler();
+        setError('login', { type: 'custom', message: error });
+        setError('password', { type: 'custom', message: error });
       }
     });
   };
   return (
     <>
-      <Modal
-        aria-labelledby="modal-title"
-        open={visible}
-        onClose={closeHandler}
-        css={{ mb: '30rem', borderWidth: '1px', borderColor: '$cyan100' }}>
-        <Modal.Header css={{ pt: '2rem' }}>
-          <Text b size="$lg" color="error">
-            Ошибка
-          </Text>
-        </Modal.Header>
-        <Modal.Body>
-          <Text css={{ textAlign: 'center' }}>{errorData.errorDesc}</Text>
-        </Modal.Body>
-        <Modal.Footer justify="center" css={{ pb: '2rem' }}>
-          <Button color="error" onPress={closeHandler}>
-            Закрыть
-          </Button>
-        </Modal.Footer>
-      </Modal>
       <div
         className="Hero"
         style={{
@@ -69,15 +61,15 @@ const Authorization: NextPage = (props): JSX.Element => {
             borderRadius: '10px',
             '@md': { ml: '30vw', mr: '30vw' },
           }}>
-          <form onSubmit={submitHandler}>
+          <form onSubmit={handleSubmit(submitHandler)}>
             <Col css={{ display: 'flex', flexDirection: 'column' }}>
               <Text size="$3xl" css={{ textAlign: 'center', fontFamily: 'manrope' }}>
                 Авторизация
               </Text>
               <Spacer y={2.4} />
               <Input
+                {...register('login')}
                 aria-label="Поле ввода электронной почты"
-                name="lgInput"
                 size="lg"
                 label="Электронная почта"
                 placeholder="example@mail.ru"
@@ -88,12 +80,12 @@ const Authorization: NextPage = (props): JSX.Element => {
                     mr: '3rem',
                   },
                 }}
-                onChange={({ target }) => setAccountData({ ...accountData, email: target.value })}
               />
+              <Text css={{ width: '80%', '@sm': { pl: '4rem', pr: '1rem' } }}>{errors.login?.message}</Text>
               <Spacer y={1.3} />
               <Input.Password
+                {...register('password')}
                 aria-label="Поле ввода пароля"
-                name="pwInput"
                 size="lg"
                 label="Пароль"
                 placeholder="**********"
@@ -103,8 +95,10 @@ const Authorization: NextPage = (props): JSX.Element => {
                     mr: '3rem',
                   },
                 }}
-                onChange={({ target }) => setAccountData({ ...accountData, password: target.value })}
               />
+              <Text css={{ width: '80%', '@sm': { pl: '4rem', pr: '1rem' } }}>
+                {errors.password?.message}
+              </Text>
               <Spacer y={1.6} />
               <Link
                 href={`/auth/registration`}

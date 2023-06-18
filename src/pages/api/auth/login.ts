@@ -9,10 +9,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     },
   });
   if (!user) {
-    return res.status(401);
+    return res.status(401).json('Неверные данные авторизации');
   } else if (user.Password == password) {
     return res.status(200).json(user);
   } else {
-    return res.status(401);
+    return res.status(401).json('Неверные данные авторизации');
   }
 }

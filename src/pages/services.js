@@ -1,5 +1,6 @@
 import SmallHero from '../components/smallHero';
 import { Container, Row, Col, Text } from '@nextui-org/react';
+import Head from 'next/head';
 
 export async function getServerSideProps() {
   const [serviceRes, categoriesRes] = await Promise.all([
@@ -25,6 +26,16 @@ export default function Services(props) {
 
   return (
     <>
+      <Head>
+        <title>Услуги - Расчёска</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="keywords"
+          content="Салон красоты, Салон, Красоты, Стрижка, Маникюр, Ногти, Окрашивание, Услуги, Парикмахерская"
+        />
+        <meta name="description" content="Страница услуг организации" />
+      </Head>
       <section>
         <SmallHero header="Услуги" link="Главная / Услуги" />
       </section>

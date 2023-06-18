@@ -33,7 +33,7 @@ model Client {
   Email            String?         @unique(map: "IX_Email") @db.NVarChar(50)
   Phone            String          @unique(map: "IX_Phone") @db.NVarChar(50)
   GenderId         Int
-  Password         String?         @unique(map: "IX_Client") @db.NVarChar(50)
+  Password         String?         @db.NVarChar(50)
   Gender           Gender          @relation(fields: [GenderId], references: [Id], onDelete: Cascade, map: "FK_Client_Gender")
   ClientService    ClientService[]
 }
@@ -44,8 +44,8 @@ model ClientService {
   ServiceId   Int
   EmployeeId  Int
   Date        DateTime @db.DateTime
-  isCompleted Boolean
   Cost        Int
+  isCompleted Boolean?
   Client      Client   @relation(fields: [ClientId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Client")
   Employee    Employee @relation(fields: [EmployeeId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Employee")
   Service     Service  @relation(fields: [ServiceId], references: [Id], onDelete: Cascade, map: "FK_ClientService_Service")

@@ -1,5 +1,6 @@
 import { Card, Container, Link, Row, Text, Col } from '@nextui-org/react';
 import SmallHero from '../components/smallHero';
+import Head from 'next/head';
 
 export default function Contacts() {
   const salonPointsData = [
@@ -8,8 +9,7 @@ export default function Contacts() {
       header: 'Центральный район',
       phoneNumber: '+7 (3532) 90‒17‒75',
       address: 'Центральный район, Оренбург, ​Карагандинская, 32, ​2 этаж',
-      mapLink:
-        'https://2gis.ru/orenburg/firm/70000001031336108?m=55.135182%2C51.791794%2F16',
+      mapLink: 'https://2gis.ru/orenburg/firm/70000001031336108?m=55.135182%2C51.791794%2F16',
       workingHours: '10:00 - 18:00',
     },
     {
@@ -17,14 +17,20 @@ export default function Contacts() {
       header: 'Промышленный район',
       phoneNumber: '+7 (3532) 28‒68‒71',
       address: 'Промышленный район, Оренбург, Пролетарская, 271, ​1 этаж',
-      mapLink:
-        'https://2gis.ru/orenburg/firm/70000001033754500?m=55.093093%2C51.806887%2F16',
+      mapLink: 'https://2gis.ru/orenburg/firm/70000001033754500?m=55.093093%2C51.806887%2F16',
       workingHours: '09:00 - 21:00',
     },
   ];
 
   return (
     <>
+      <Head>
+        <title>Контакты - Расчёска</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="keywords" content="Адрес, ссылка, режим работы" />
+        <meta name="description" content="Страница контактных данных" />
+      </Head>
       <section>
         <SmallHero header="Контакты" link="Главная / Контакты" />
       </section>
@@ -88,12 +94,8 @@ export default function Contacts() {
                   </Text>
                 </Card.Header>
                 <Card.Body css={{ '@xs': { pr: '2rem' } }}>
-                  <Text css={{ fs: '$md', pl: '0.5rem', '@sm': { fs: '$lg' } }}>
-                    {point.phoneNumber}
-                  </Text>
-                  <Text css={{ fs: '$md', pl: '0.5rem', '@sm': { fs: '$lg' } }}>
-                    {point.address}
-                  </Text>
+                  <Text css={{ fs: '$md', pl: '0.5rem', '@sm': { fs: '$lg' } }}>{point.phoneNumber}</Text>
+                  <Text css={{ fs: '$md', pl: '0.5rem', '@sm': { fs: '$lg' } }}>{point.address}</Text>
                   <Link
                     color="secondary"
                     css={{ fs: '$md', pt: '2rem', pl: '0.5rem', '@sm': { fs: '$lg' } }}

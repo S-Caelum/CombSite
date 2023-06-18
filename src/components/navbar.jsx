@@ -99,7 +99,7 @@ const Nav = () => {
                 justifyContent: 'center',
                 color: 'white',
               }}
-              href="/user">
+              href={`/user/${session.user.Id}`}>
               {session.user.FirstName} {session.user.LastName}
             </Link>
             <Link

@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
+    largePageDataBytes: 512 * 100000,
     forceSwcTransforms: true,
   },
   reactStrictMode: false,

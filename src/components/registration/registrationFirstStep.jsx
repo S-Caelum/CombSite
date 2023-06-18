@@ -27,6 +27,7 @@ const RegistrationFirstStep = ({
     lastName: Yup.string().required('Заполните поле'),
     patronymic: Yup.string(),
     dob: Yup.date()
+      .typeError('Введите корректную дату')
       .required('Заполните поле')
       .max(new Date(), 'Выбранная дата не должна превышать текущую')
       .min(new Date('1900-01-01'), 'Выбранная дата не должная быть меньше 1900 года'),
