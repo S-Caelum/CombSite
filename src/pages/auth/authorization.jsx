@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 const Authorization = () => {
   const router = useRouter();
@@ -42,6 +43,13 @@ const Authorization = () => {
   };
   return (
     <>
+      <Head>
+        <title>Авторизация - Расчёска</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="keywords" content="авторизация, салон, красоты, салонкрасоты, салон красоты" />
+        <meta name="description" content="Страница авторизации" />
+      </Head>
       <div
         className="Hero"
         style={{

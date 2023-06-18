@@ -110,6 +110,7 @@ const RegistrationSecondStep = ({
               aria-label="Поле ввода пароля"
               label="Пароль"
               size="lg"
+              type="password"
               placeholder="**********"
               css={{ width: '85%' }}
             />
@@ -124,6 +125,7 @@ const RegistrationSecondStep = ({
               aria-label="Поле ввода подтверждения пароля"
               label="Подтверждение"
               size="lg"
+              type="password"
               placeholder="**********"
               css={{ width: '85%' }}
             />

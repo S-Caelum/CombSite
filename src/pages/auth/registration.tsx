@@ -4,6 +4,7 @@ import FirstStep from '../../components/registration/registrationFirstStep';
 import SecondStep from '../../components/registration/registrationSecondStep';
 import ThirdStep from '../../components/registration/registrationThirdStep';
 import { Container, Text, Spacer, Card, Modal, Button } from '@nextui-org/react';
+import Head from 'next/head';
 
 const Registration: NextPage = (props): JSX.Element => {
   const [registrationStep, setRegistrationStep] = useState({
@@ -21,12 +22,17 @@ const Registration: NextPage = (props): JSX.Element => {
     phone: '',
     password: '',
   });
-  const [message, setMessage] = useState('');
-  const [visible, setVisible] = useState(false);
   const [code, setCode] = useState({ code: '', time: '' });
 
   return (
     <>
+      <Head>
+        <title>Регистрация - Расчёска</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="keywords" content="регистрация, салон, красоты, салонкрасоты, салон красоты" />
+        <meta name="description" content="Страница регистрации" />
+      </Head>
       <div
         className="Hero"
         style={{
@@ -36,21 +42,6 @@ const Registration: NextPage = (props): JSX.Element => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Modal open={visible} css={{ mb: '30rem', borderWidth: '1px', borderColor: '$cyan100' }}>
-          <Modal.Header>
-            <Text b size="$lg" color="error">
-              Ошибка
-            </Text>
-          </Modal.Header>
-          <Modal.Body>
-            <Text css={{ textAlign: 'center' }}>{message}</Text>
-          </Modal.Body>
-          <Modal.Footer justify="center" css={{ pb: '2rem' }}>
-            <Button color="error" onPress={() => setVisible(false)}>
-              Закрыть
-            </Button>
-          </Modal.Footer>
-        </Modal>
         <Container
           css={{
             bgColor: '#424242ab',
