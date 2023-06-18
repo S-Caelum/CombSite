@@ -82,12 +82,6 @@ const Nav = () => {
         )}
       </Navbar.Content>
 
-      <Navbar.Content showIn="xs">
-        <NextLink style={{ color: 'white' }} href="/auth/authorization">
-          Авторизация
-        </NextLink>
-      </Navbar.Content>
-
       {/* Mobile */}
       <Navbar.Collapse>
         {session ? (

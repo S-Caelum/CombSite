@@ -112,15 +112,12 @@ const OrderDataForm = ({
           </Text>
           <Row
             css={{
+              display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               gap: '1rem',
               justifyContent: 'space-around',
               pt: '2rem',
-              '@lg': {
-                flexDirection: 'row',
-                alignItems: 'center',
-              },
               '@xs': {
                 flexDirection: 'row',
                 alignItems: 'center',

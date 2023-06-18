@@ -50,8 +50,8 @@ const RegistrationThirdStep = ({
         onSubmit={handleSubmit(thirdStepHandler)}
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Text css={{ fontSize: '$lg', textAlign: 'justify', pr: '2.7rem', pl: '2.7rem' }}>
-          На указанный вами адрес электронной почты было отправлено письмо, с кодом. Для завершения
-          регистрации введите полученный код в поле ниже.
+          На указанный вами адрес электронной почты было отправлено письмо с кодом. Для завершения регистрации
+          введите полученный код в поле ниже.
         </Text>
         <Spacer y={1.3} />
         <Input
@@ -64,7 +64,16 @@ const RegistrationThirdStep = ({
           {errors.validationCode?.message}
         </Text>
         <Spacer y={2} />
-        <Row justify="space-around">
+        <Row
+          justify="space-around"
+          css={{
+            display: 'flex',
+            flexDirection: 'column',
+            '@xs': {
+              flexDirection: 'row',
+              alignItems: 'center',
+            },
+          }}>
           <Button
             color="secondary"
             onPress={() => {
@@ -73,6 +82,7 @@ const RegistrationThirdStep = ({
             size="md">
             Назад
           </Button>
+          <Spacer y={1.2} />
           <Button color="secondary" type="submit" size="md">
             Завершить
           </Button>

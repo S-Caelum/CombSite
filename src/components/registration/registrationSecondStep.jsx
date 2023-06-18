@@ -131,7 +131,16 @@ const RegistrationSecondStep = ({
           </Row>
         </Row>
         <Spacer y={2} />
-        <Row justify="space-around">
+        <Row
+          justify="space-around"
+          css={{
+            display: 'flex',
+            flexDirection: 'column',
+            '@xs': {
+              flexDirection: 'row',
+              alignItems: 'center',
+            },
+          }}>
           <Button
             color="secondary"
             size="md"
@@ -140,6 +149,7 @@ const RegistrationSecondStep = ({
             }}>
             Назад
           </Button>
+          <Spacer y={1.2} />
           <Button color="secondary" type="submit" size="md">
             Далее
           </Button>
