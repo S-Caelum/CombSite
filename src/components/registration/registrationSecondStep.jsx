@@ -60,7 +60,7 @@ const RegistrationSecondStep = ({
     sendMail(data.email);
   };
   return (
-    <Card.Body css={{ display: registrationStep.secondStep }}>
+    <Card.Body css={{ display: registrationStep.secondStep, background: 'transparent' }}>
       <form
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
         onSubmit={handleSubmit(secondStepHandler)}>
@@ -138,6 +138,8 @@ const RegistrationSecondStep = ({
           css={{
             display: 'flex',
             flexDirection: 'column',
+            alignItems: 'center',
+            background: 'transparent',
             '@xs': {
               flexDirection: 'row',
               alignItems: 'center',

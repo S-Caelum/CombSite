@@ -54,7 +54,7 @@ const Registration: NextPage = (props): JSX.Element => {
             borderRadius: '10px',
             '@md': { ml: '30vw', mr: '30vw' },
           }}>
-          <Card css={{ bgColor: 'transparent' }}>
+          <Card css={{ background: 'transparent' }}>
             <Card.Header css={{ textAlign: 'center', justifyContent: 'center' }}>
               <Text size="$3xl" css={{ textAlign: 'center', fontFamily: 'manrope' }}>
                 Регистрация

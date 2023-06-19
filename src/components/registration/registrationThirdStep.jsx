@@ -45,7 +45,7 @@ const RegistrationThirdStep = ({
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema), mode: 'onSubmit' });
   return (
-    <Card.Body css={{ display: registrationStep.thirdStep }}>
+    <Card.Body css={{ display: registrationStep.thirdStep, background: 'transparent' }}>
       <form
         onSubmit={handleSubmit(thirdStepHandler)}
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -68,7 +68,9 @@ const RegistrationThirdStep = ({
           justify="space-around"
           css={{
             display: 'flex',
+            alignItems: 'center',
             flexDirection: 'column',
+            background: 'transparent',
             '@xs': {
               flexDirection: 'row',
               alignItems: 'center',
